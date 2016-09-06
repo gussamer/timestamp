@@ -2,7 +2,10 @@
   "name": "timestamp",
   "version": "1.0.0",
   "description": "Timestamp Microservice for Freecodecamp project",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": {
+    "node": "^4.4.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
