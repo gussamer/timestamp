@@ -23,7 +23,6 @@ app.get(/\/(.*)/, function (req, res) {
     }catch(err){
         
     }
-    res.writeHead(200,{'Content-Type':'application/json'});
     res.send(JSON.stringify(retobj));
 });
 
