@@ -13,16 +13,6 @@ app.get('/:date', function (req, res) {
     ];
     console.log(req.params.date);
     try{
-        /*var unix;
-        try{
-            unix = parseInt(req.params.date);
-            console.log(unix);
-            if(isNaN(unix)) throw "Parse Error";
-            date = new Date(unix*1000);
-        }catch(err){
-            console.log(err);
-            date = new Date(req.params.date);
-        }*/
         if(/[^\d]/.test(req.params.date)) date = new Date(req.params.date);
         else date = new Date(parseInt(req.params.date)*1000);
         console.log(date);
