@@ -5,25 +5,44 @@ app.get('/', function (req, res) {
     res.send('<h1>QRFDEV Timestamp Microservice</h1>');
 });
 
-app.get(/\/(.*)/, function (req, res) {
+app.get('/:date', function (req, res) {
     var date;
-    var retobj = {};
+    var retobj;
     var monthNames = [ "January", "February", "March","April", "May", "June", "July"
                         ,"August", "September", "October","November", "December"
     ];
+    console.log(req.params.date);
     try{
-        console.log(req.params);
-        date = Date.parse('2016 10 31');
-        retobj.unix = date.getTime();
+        /*var unix;
+        try{
+            unix = parseInt(req.params.date);
+            console.log(unix);
+            if(isNaN(unix)) throw "Parse Error";
+            date = new Date(unix*1000);
+        }catch(err){
+            console.log(err);
+            date = new Date(req.params.date);
+        }*/
+        if(/[^\d]/.test(req.params.date)) date = new Date(req.params.date);
+        else date = new Date(parseInt(req.params.date)*1000);
+        console.log(date);
         var day = date.getDate();
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
         console.log(monthNames[monthIndex], day, year);
-        retobj.natural = monthNames[monthIndex]+' '+day+', '+year;
+        retobj = {
+            "unix":date.getTime()/1000
+            ,"natural":monthNames[monthIndex]+' '+day+', '+year
+        };
     }catch(err){
-        
+        console.log(err);
+        retobj = {
+            "unix": null
+            ,"natural":null
+        };
     }
-    res.send(JSON.stringify(retobj));
+    console.log(retobj);
+    res.json(retobj);
 });
 
 app.listen(lp, function () {
